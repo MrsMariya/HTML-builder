@@ -10,7 +10,6 @@ stdin.on('data', data => {
     process.exit();
   } else {
     text.write(data);
-    stdout.write('would you like to write something else?\nIf not, write "exit"\n');
   }
 })
 process.on('SIGINT', () =>  {

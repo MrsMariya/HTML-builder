@@ -4,7 +4,7 @@ const path = require('path');
 
 
  function styleFile(styleFolder, allStyle) {
-  fsp.writeFile(allStyle, err => {if(err) throw err})
+  fsp.writeFile(allStyle, '', err => {if(err) throw err})
   fs.readdir(styleFolder, 'utf8' , (err, files) => {
     if(err) throw err;
     for (let file of files){

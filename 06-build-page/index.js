@@ -29,24 +29,25 @@ function copyFolder(firstDir, destDir) {
 copyFolder((path.join(__dirname, 'assets')), (path.join(__dirname, 'project-dist', 'assets' )))
 
 function indexFile (soursIndex, newIndex) {
-  fsp.writeFile(newIndex, '', err => {if(err) throw err})
-  const readStream = fs.createReadStream(path.join(__dirname, 'template.html'), 'utf-8');
-  readStream.on('data', (chunk) => soursIndex = chunk.toString())
-  /* fs.readdir(soursIndex, 'utf8',(err, files) => {
+  fsp.copyFile(path.join(__dirname, 'template.html'), path.join(__dirname, 'project-dist', 'index.html'));
+  fs.readdir(soursIndex, 'utf8',(err, files) => {
     if(err) throw err;
     for (let file of files) {
-      fs.stat(path.join(soursIndex, file), 'utf8', err => {
+      fs.stat(path.join(soursIndex, file), 'utf8', (err, status) => {
         if(err) throw err;
-          if(path.extname(file) === '.html') {
-             fs.writeFile(newIndex, file, err => {
+          if(status.isFile() && path.extname(file) === '.html') {
+            fs.readFile (path.join(soursIndex, file), 'utf8', (err, file) => {
+              if(err) throw err; 
+             fsp.appendFile(newIndex, file, err => {
                 if(err) throw err; 
               })
-            }
+            })
+          }
        } )
       }
-      })*/
+      })  
     }  
-   indexFile ((path.join(__dirname, 'template.html')),(path.join(__dirname, 'project-dist', 'index.html')) ) 
+   indexFile ((path.join(__dirname,  'components')),(path.join(__dirname, 'project-dist', 'index.html')) ) 
 
 function styleFile(styleFolder, allStyle) {
   fsp.writeFile(allStyle, '', err => {if(err) throw err})
